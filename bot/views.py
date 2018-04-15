@@ -3,9 +3,7 @@ from django.http import HttpResponse
 
 # Create your views here.
 import json
-import random
 import requests
-# from load_serif import osomatsu_serif
 
 REPLY_ENDPOINT = 'https://api.line.me/v2/bot/message/reply'
 ACCESS_TOKEN = 's1QnhL2/aBnNeuGpbaQMgzCTw0jSs3d8Yun+CXQs0mjX/Z60qiKcuNn2N76OjWVydkXuez9o4Dc8s9zLKZTwwsNbyYB9IjKg9joidEVTpeQe7jTTevQ/90zrrr4D6HfJiM6zHPT6lX/zULN9m0BlrgdB04t89/1O/w1cDnyilFU='
@@ -29,6 +27,42 @@ def reply_text(reply_token, text):
     requests.post(REPLY_ENDPOINT, headers=HEADER, data=json.dumps(payload))
     return reply
 
+def reply_text_watson(reply_token, text):
+    import watson_developer_cloud
+
+    assistant = watson_developer_cloud.AssistantV1(
+        username='2c156551-fa59-4e3d-9ad2-a68c82f6f0de',
+        password='XUO2FmVYrQxw',
+        version='2018-02-16'
+    )
+
+    from watson_developer_cloud import WatsonApiException
+    try:
+        # Invoke a Assistant method
+        response = assistant.message(
+            workspace_id='585d1384-6b78-42a3-8911-5958572af8a4',
+            input={
+                'text': 'Hello'
+            }
+        )
+    except WatsonApiException as ex:
+        print("Method failed with status code " + str(ex.code) + ": " + ex.message)
+
+    print(json.dumps(response, indent=2))
+
+    payload = {
+        "replyToken": reply_token,
+        "messages": [
+            {
+                "type": "text",
+                "text": response["output"]["text"][0]
+            }
+        ]
+    }
+
+    requests.post(REPLY_ENDPOINT, headers=HEADER, data=json.dumps(payload))
+    return response["output"]["text"][0]
+
 
 def index(request):
     return HttpResponse("this is bot api")
@@ -43,5 +77,5 @@ def callback(request):
 
         if message_type == 'text':
             text = e['message']['text']
-            reply += reply_text(reply_token, text)
+            reply += reply_text_watson(reply_token, text)
     return HttpResponse(reply)
