@@ -44,7 +44,7 @@ def reply_text_watson(reply_token, text):
         response = assistant.message(
             workspace_id='585d1384-6b78-42a3-8911-5958572af8a4',
             input={
-                'text': 'Hello'
+                'text': text
             }
         )
     except WatsonApiException as ex:
