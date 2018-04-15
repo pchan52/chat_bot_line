@@ -1,0 +1,1 @@
+osomatsu_serif = open("osomatsu_serif.txt").read().split("\n")
