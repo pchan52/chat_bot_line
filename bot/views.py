@@ -5,7 +5,7 @@ from django.http import HttpResponse
 import json
 import random
 import requests
-from load_serif import osomatsu_serif
+# from load_serif import osomatsu_serif
 
 REPLY_ENDPOINT = 'https://api.line.me/v2/bot/message/reply'
 ACCESS_TOKEN = 's1QnhL2/aBnNeuGpbaQMgzCTw0jSs3d8Yun+CXQs0mjX/Z60qiKcuNn2N76OjWVydkXuez9o4Dc8s9zLKZTwwsNbyYB9IjKg9joidEVTpeQe7jTTevQ/90zrrr4D6HfJiM6zHPT6lX/zULN9m0BlrgdB04t89/1O/w1cDnyilFU='
@@ -15,7 +15,7 @@ HEADER = {
 }
 
 def reply_text(reply_token, text):
-    reply = random.choice(osomatsu_serif)
+    reply = "reply"
     payload = {
           "replyToken":reply_token,
           "messages":[

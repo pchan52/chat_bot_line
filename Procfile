@@ -1,1 +1,1 @@
-web: gunicorn osomatsu_bot.wsgi bot:app --log-file -
+web: gunicorn chat_bot_line.wsgi bot:app --log-file -
