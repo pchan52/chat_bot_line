@@ -30,9 +30,11 @@ def reply_text(reply_token, text):
 def reply_text_watson(reply_token, text):
     import watson_developer_cloud
 
+    print(text)
+
     assistant = watson_developer_cloud.AssistantV1(
-        username='2c156551-fa59-4e3d-9ad2-a68c82f6f0de',
-        password='XUO2FmVYrQxw',
+        username='150c843f-ce7e-4751-8a5f-148d111972ee',
+        password='coYNA700SQui',
         version='2018-02-16'
     )
 
